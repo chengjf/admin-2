@@ -11,7 +11,7 @@
 						<v-siderbar></v-siderbar>
 					</b-col>
 					<b-col>
-						<v-content></v-content>
+      			<router-view></router-view>
 					</b-col>
 				</b-row>
 		</b-col>

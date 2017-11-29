@@ -1,9 +1,7 @@
 <template>
     <b-nav vertical pills type="dark">
-        <b-nav-item active>Active</b-nav-item>
-        <b-nav-item>Link</b-nav-item>
-        <b-nav-item>Another Link</b-nav-item>
-        <b-nav-item disabled>Disabled</b-nav-item>
+        <b-nav-item to="home">Home</b-nav-item>
+        <b-nav-item to="oneclick">oneclick</b-nav-item>
     </b-nav>
 </template>
 <script>

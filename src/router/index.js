@@ -8,14 +8,14 @@ import store from 'store'
 import viewPageComponent from 'pages/App'
 
 // //home
-// import homeComponent from 'pages/home'
+import homeComponent from 'pages/home'
 //404
 import noPageComponent from 'pages/error/404'
 //login
 import loginComponent from 'pages/user/login'
 
 
-// import oneclick from 'pages/oneclick'
+import oneclick from 'pages/oneclick'
 
 Vue.use(VueRouter)
 
@@ -39,9 +39,17 @@ const routes = [{
   children: [{
     path: '/home',
     name: 'home',
-    component: noPageComponent,
+    component: homeComponent,
     meta: {
       title: "主页",
+      auth: true
+    }
+  },{
+    path: '/oneclick',
+    name: 'oneclick',
+    component: oneclick,
+    meta: {
+      title: "oneclick",
       auth: true
     }
   }]
