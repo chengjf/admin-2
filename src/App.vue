@@ -1,52 +1,53 @@
 <template>
   <div id="app">
     <b-container class="bv-example-row" style="min-height:100%">
-	<b-row>
-		<b-col class="w-25">
-			<b-nav vertical class="w-25">
-				<b-nav-item active>Active</b-nav-item>
-				<b-nav-item>Link</b-nav-item>
-				<b-nav-item>Another Link</b-nav-item>
-				<b-nav-item disabled>Disabled</b-nav-item>
-			</b-nav>
-		</b-col>
-		<b-col class="w-75">
-			<b-row align-v="start">
-				<b-col>HEAD</b-col>
-			</b-row>
-			<b-row align-v="center">
+		<b-row>
 			<b-col>
-				
-			</b-col>
-			<b-col>One of three columns</b-col>
-			
-			</b-row>
-			<b-row align-v="end">
-				<b-col>FOOTER</b-col>
-			</b-row>
-			<footer>COPYRIGHT</footer>
+					<v-header></v-header>
+				</b-col>
+			<b-col col lg="10">
+				<b-row>
+					<b-col col lg="2">
+						<v-siderbar></v-siderbar>
+					</b-col>
+					<b-col>
+						<v-content></v-content>
+					</b-col>
+				</b-row>
 		</b-col>
 	</b-row>
+	
+	<vFooter></vFooter>
 	
 	</b-container>
   </div>
 </template>
 
 <script>
+import vFooter from "./components/footer/index.vue"
+import vHeader from "./components/header/index.vue"
+import vSiderbar from "./components/sidebar/index.vue"
+import vContent from "./components/content/index.vue"
 
 export default {
-  name: 'app',
-  data () {
+	name: "app",
+	components: {
+		vFooter,
+		vHeader,
+		vSiderbar,
+		vContent
+  },
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+      msg: "Welcome to Your Vue.js App"
+    };
   }
-}
+};
 </script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -54,7 +55,8 @@ export default {
   margin-top: 60px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 
