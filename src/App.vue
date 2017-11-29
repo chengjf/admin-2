@@ -1,76 +1,17 @@
 <template>
-  <div id="app">
-    <b-container class="bv-example-row" style="min-height:100%">
-		<b-row>
-			<b-col>
-					<v-header></v-header>
-				</b-col>
-			<b-col col lg="10">
-				<b-row>
-					<b-col col lg="2">
-						<v-siderbar></v-siderbar>
-					</b-col>
-					<b-col>
-						<v-content></v-content>
-					</b-col>
-				</b-row>
-		</b-col>
-	</b-row>
-	
-	<vFooter></vFooter>
-	
-	</b-container>
-  </div>
+	<section class="body-warp">
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
+  </section>
 </template>
 
 <script>
-import vFooter from "./components/footer/index.vue"
-import vHeader from "./components/header/index.vue"
-import vSiderbar from "./components/sidebar/index.vue"
-import vContent from "./components/content/index.vue"
 
 export default {
 	name: "app",
-	components: {
-		vFooter,
-		vHeader,
-		vSiderbar,
-		vContent
-  },
-  data() {
-    return {
-      msg: "Welcome to Your Vue.js App"
-    };
-  }
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1,
-h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>
