@@ -25,14 +25,21 @@
         <v-btn icon>
           <v-icon>notifications</v-icon>
         </v-btn>
-        <v-btn icon large @click="dialog=true">
-          <v-avatar size="32px" tile>
+        <v-menu bottom left offset-y>
+          <v-btn icon slot="activator">
+            <v-avatar size="32px" tile>
             <img
               src="https://vuetifyjs.com/static/doc-images/logo.svg"
               alt="Vuetify"
             >
-          </v-avatar>
-        </v-btn>
+            </v-avatar>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="(item, i) in items" :key="i" @click="">
+              <v-list-tile-title @click="click(i)">{{ item.title }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </div>
     </v-toolbar>
 
@@ -99,28 +106,75 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="logout_dialog" persistent max-width="290">
+      <v-btn color="primary" dark slot="activator">Open Dialog</v-btn>
+      <v-card>
+        <v-card-title class="headline">确定退出？</v-card-title>
+        <v-card-text>退出后需要重新登录</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat @click.native="logout_dialog = false">取消</v-btn>
+          <v-btn color="green darken-1" flat @click.native="logout">确认</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    
   </div>
 </template>
 <script>
+import {mapActions} from 'vuex'
+import {SET_USER_INFO} from 'store/actions/type'
 import bus from "bus"
+
 export default {
   name: "header",
   data: function(){
       return {
         username : "123",
         drawer: true,
-        dialog: false
+        dialog: false,
+        logout_dialog: false,
+        items: [
+          {
+            title: 'Profile',
+            action: function(){
+              console.log("profile")
+            }
+          },
+          {
+            title: 'Logout'
+          }
+        ],
       }
   },
   methods: {
-      logout: function(){
-        // alert("logout")
-        this.$alert("xxx")
-      },
-      drawerBus: function(){
-          this.drawer = !this.drawer
-          bus.$emit("drawer", this.drawer);
+    ...mapActions({
+        set_user_info: SET_USER_INFO
+    }),
+    logout: function(){
+      // alert("logout")
+      this.logout_dialog=false
+      this.set_user_info(
+          {
+            user: "1233",
+            login: false
+          }
+        )
+        setTimeout(this.$router.push({path: '/login'}), 500)
+    },
+    drawerBus: function(){
+        this.drawer = !this.drawer
+        bus.$emit("drawer", this.drawer);
+    },
+    click: function(index){
+      console.log(index)
+      switch(index){
+        case 0:
+          this.dialog = true;
+        case 1:
+          this.logout_dialog = true;
       }
+    }
   }
 }
 </script>
