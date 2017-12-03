@@ -1,38 +1,125 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="info">
+  <div>
+   <v-toolbar
+      color="blue darken-3"
+      dark
+      app
+      clipped-left
+      fixed
+    >
+      <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
+        <v-toolbar-side-icon @click.stop="drawerBus"></v-toolbar-side-icon>
+        <span class="hidden-xs-only">Google Contacts</span>
+      </v-toolbar-title>
+      <v-text-field
+        light
+        solo
+        prepend-icon="search"
+        placeholder="Search"
+        style="max-width: 500px; min-width: 128px"
+      ></v-text-field>
+      <div class="d-flex align-center" style="margin-left: auto">
+        <v-btn icon>
+          <v-icon>apps</v-icon>
+        </v-btn>
+        <v-btn icon>
+          <v-icon>notifications</v-icon>
+        </v-btn>
+        <v-btn icon large @click="dialog=true">
+          <v-avatar size="32px" tile>
+            <img
+              src="https://vuetifyjs.com/static/doc-images/logo.svg"
+              alt="Vuetify"
+            >
+          </v-avatar>
+        </v-btn>
+      </div>
+    </v-toolbar>
 
-        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-
-        <b-navbar-brand href="#" to="home">NavBar</b-navbar-brand>
-
-        <b-collapse is-nav id="nav_collapse">
-            <!-- Right aligned nav items -->
-            <b-navbar-nav class="ml-auto">
-
-                <b-nav-form>
-                    <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
-                    <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-                </b-nav-form>
-
-                <b-nav-item-dropdown right>
-                    <!-- Using button-content slot -->
-                    <template slot="button-content">
-                        <em>{{username}}</em>
-                    </template>
-                    <b-dropdown-item href="#">Profile</b-dropdown-item>
-                    <b-dropdown-item href="#">Signout</b-dropdown-item>
-                </b-nav-item-dropdown>
-            </b-navbar-nav>
-
-        </b-collapse>
-    </b-navbar>
+     <v-dialog v-model="dialog" width="800px">
+      <v-card>
+        <v-card-title
+          class="grey lighten-4 py-4 title"
+        >
+          Create contact
+        </v-card-title>
+        <v-container grid-list-sm class="pa-4">
+          <v-layout row wrap>
+            <v-flex xs12 align-center justify-space-between>
+              <v-layout align-center>
+                <v-avatar size="40px" class="mr-3">
+                  <img
+                    src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
+                    alt=""
+                  >
+                </v-avatar>
+                <v-text-field
+                  placeholder="Name"
+                ></v-text-field>
+              </v-layout>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Company"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                placeholder="Job title"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                prepend-icon="mail"
+                placeholder="Email"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                type="tel"
+                prepend-icon="phone"
+                placeholder="(000) 000 - 0000"
+                mask="phone"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                prepend-icon="notes"
+                placeholder="Notes"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-container>
+        <v-card-actions>
+          <v-btn flat color="primary">More</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn flat color="primary" @click="dialog = false">Cancel</v-btn>
+          <v-btn flat @click="dialog = false">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 <script>
+import bus from "bus"
 export default {
   name: "header",
   data: function(){
       return {
-        username : "123"
+        username : "123",
+        drawer: true,
+        dialog: false
+      }
+  },
+  methods: {
+      logout: function(){
+        // alert("logout")
+        this.$alert("xxx")
+      },
+      drawerBus: function(){
+          this.drawer = !this.drawer
+          bus.$emit("drawer", this.drawer);
       }
   }
 }

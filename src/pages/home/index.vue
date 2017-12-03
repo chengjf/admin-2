@@ -1,9 +1,6 @@
 <template>
-  <div class="panel">
-    <div class="panel-body">
-      {{msg}}
-    </div>
-  </div>
+   <h1>{{msg}}</h1>
+
 </template>
 <script type="text/javascript">
 
