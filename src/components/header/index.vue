@@ -170,7 +170,17 @@ export default {
       console.log(index)
       switch(index){
         case 0:
+          this.$fetch.api_user.getAllUsers().then(({data, msg}) => {
+             
+							console.log(data)
+            })
+            .catch(({code}) => {
+             
+								console.log(code)
+              
+						})
           this.dialog = true;
+          break
         case 1:
           this.logout_dialog = true;
       }

@@ -9,10 +9,19 @@ export function login(data) {
     data
   })
 }
+
 //登出
 export function logout() {
   return fetch({
     url: port_user.logout,
     method: 'post'
+  })
+}
+
+// 获取所有用户
+export function getAllUsers() {
+  return fetch({
+    url: port_user.getAllUsers,
+    method: 'get'
   })
 }

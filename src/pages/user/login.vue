@@ -19,15 +19,15 @@
 								<v-container fluid>
 									<v-layout row wrap>
 										<v-flex xs4 md4>
-											<v-subheader>邮箱地址</v-subheader>
+											<v-subheader>用户名</v-subheader>
 										</v-flex>
 										<v-flex xs8 md8>
 											<v-text-field
-												name="email"
-												label="邮箱地址"
-												v-model="email"
-												:rules="emailRules"
-												id="email_input"
+												name="username"
+												label="用户名地址"
+												v-model="username"
+												:rules="nameRules"
+												id="username_input"
 												required
 												validate-on-blur
 											></v-text-field>
@@ -71,8 +71,9 @@
 <script type="text/javascript">
   import {mapActions} from 'vuex'
   import {SET_USER_INFO} from 'store/actions/type'
+	import {port_user, port_code} from 'common/port_uri'
 
-  export default{
+export default{
     data(){
       return {
         e1: true,
@@ -92,7 +93,7 @@
         ],
         passwordRules: [
           (v) => !!v || '密码不能为空',
-          (v) => v && v.length <= 20 && v.length >= 8 || '密码长度必须大于8且小于20'
+          //(v) => v && v.length <= 20 && v.length >= 8 || '密码长度必须大于8且小于20'
         ],
       }
     },
@@ -105,16 +106,42 @@
       }),
       //提交
       submit() {
-        //alert("submit")
         // if(this.name.length > 0)
         if(this.$refs.form.validate()){
-          this.set_user_info(
-            {
-              user: "1233",
-              login: true
-            }
-          )
-          setTimeout(this.$router.push({path: '/'}), 500)
+          // this.set_user_info(
+          //   {
+          //     user: "1233",
+          //     login: true
+          //   }
+					// )
+					console.log("validate")
+					console.log(this.$refs.form)
+					this.$fetch.api_user.login({
+						username: this.username,
+						password: this.password
+					})
+            .then(({data, msg}) => {
+              this.set_user_info({
+                user: data,
+                login: true
+              })
+							// this.$message.success(msg)
+							console.log("登录成功")
+							console.log(data)
+              setTimeout(this.$router.push({path: '/'}), 500)
+            })
+            .catch(({code}) => {
+              this.load_data = false
+              if (code === port_code.error) {
+                // this.$alert({
+                //   title: '温馨提示',
+								// 	message: '账号和密码都为：admin',
+								// 	color: 'error',
+								// 	icon: 'warning'
+								// })
+								console.log("登录失败")
+              }
+						})
         }
       },
       clear () {

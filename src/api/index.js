@@ -1,8 +1,6 @@
 import * as api_user from './user'
 
 const apiObj = {
-  api_file,
-  api_table,
   api_user
 }
 

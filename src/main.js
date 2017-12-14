@@ -6,8 +6,10 @@ import "bootstrap-vue/dist/bootstrap-vue.css"
 import router from './router'
 import store from './store'
 import Vuetify from 'vuetify'
+import api from './api'
 
 Vue.use(Vuetify)
+Vue.use(api)
 Vue.config.devtools = process.env.NODE_ENV === 'development'
 
 new Vue({

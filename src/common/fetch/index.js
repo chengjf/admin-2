@@ -1,7 +1,7 @@
 //导入模块
 import axios from 'axios'
 import {port_code} from 'common/port_uri'
-import router from 'src/router'
+import router from 'router'
 import store from 'store'
 import {SET_USER_INFO} from 'store/actions/type'
 import {server_base_url} from 'common/config'
@@ -9,6 +9,12 @@ import {server_base_url} from 'common/config'
 //设置用户信息action
 const setUserInfo = function (user) {
   store.dispatch(SET_USER_INFO, user)
+}
+// 设置JWT
+
+const getUserInfo = function (){
+  console.log(store.state.user_info)
+  return store.state.user_info.user.token
 }
 
 export default function fetch(options) {
@@ -24,7 +30,8 @@ export default function fetch(options) {
       headers: {
         'Github-url': 'https://github.com/chengjf/admin-2',
         'X-Powered-By': 'chengjf',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer ' + getUserInfo()
       }
     })
     //请求处理
